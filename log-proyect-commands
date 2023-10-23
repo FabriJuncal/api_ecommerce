@@ -1,0 +1,21 @@
+// Creación del proyecto Laravel 10
+curl -s https://laravel.build/pos-system-api | bash
+
+// Descargamos Jetstream:
+sail composer require laravel/jetstream --dev
+
+// Instalación de dependencias NPM y migración de la Base de Datos
+npm install
+npm run build
+php artisan migrate
+
+// Creación de Migraciones
+sail php artisan make:migration create_company_categories_table
+sail php artisan make:migration create_social_networks
+sail php artisan make:migration create_companies_table
+sail php artisan make:migration create_company_social_networks
+sail php artisan make:migration create_local_table
+sail php artisan make:migration create_nums_phones_table
+
+// Creación de controlador para la subida de imagenes
+sail php artisan make:controller ImagenController
