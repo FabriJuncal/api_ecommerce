@@ -90,6 +90,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
+        // Elimina el token de la tabla "personal_access_tokens"
         auth()->user()->tokens()->delete();
         return response()->json([
             'status' => true,
@@ -97,6 +98,11 @@ class AuthController extends Controller
         ], 200);
     }
 
+    /**
+     * Obtiene los datos del usuario autenticado
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function me()
     {
         // $user = Auth::user(); // Obtén el usuario autenticado actualmente
@@ -109,6 +115,11 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Envía un mail para reestablecer la contraseña
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function sendResetLink(Request $request)
     {
         $request->validate(['email' => 'required|email']);
