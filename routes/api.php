@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 // Se definen las rutas que no estarán protegidas por Sanctum, ya que no son requeridas.
 // En esta instancia recien se obtendrá el API TOKEN para poder acceder a las rutas protegidas por Sanctum.
 Route::post('auth/register',[AuthController::class, 'create']);
-Route::post('auth/login',[AuthController::class, 'login']);
+Route::post('auth/login',[AuthController::class, 'loginAdmin']);
+Route::post('auth/login-ecommerce',[AuthController::class, 'loginEcommerce']);
 Route::post('auth/forgot-password',[AuthController::class, 'sendResetLink']);
 
 Route::middleware(['auth:sanctum'])->group(function(){

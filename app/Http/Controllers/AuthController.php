@@ -40,6 +40,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'surname' => $request->surname,
             'email' => $request->email,
+            'type_user' => $request->type_user,
             'password' => Hash::make($request->password)
         ]);
 
@@ -51,12 +52,58 @@ class AuthController extends Controller
     }
 
     /**
-     * Iniciar sesión para un usuario existente.
+     * Iniciar sesión como un usuario Admin.
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(Request $request)
+    public function loginAdmin(Request $request)
+    {
+        $rules = [
+            'email' => 'required|string|email|max:100',
+            'password' => 'required|string',
+            'type_user' => 'required|in:2'
+        ];
+        $validator = \Validator::make($request->input(), $rules);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()->all()
+            ], 400);
+        }
+
+        if (!Auth::attempt([
+            "email" => $request->email,
+            "password" => $request->password,
+            "state" => 1,
+            "type_user" => 2
+        ])) {
+            return response()->json([
+                'status' => false,
+                'errors' => ['No autorizado']
+            ], 401);
+        }
+
+        $user = User::where('email', $request->email)->first();
+
+        // Accede al nombre del rol a través de la relación
+        $user->role->all();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Usuario ha iniciado sesión exitosamente',
+            'user' => $user,
+            'access_token' => $user->createToken('API TOKEN')->plainTextToken
+        ], 200);
+    }
+
+    /**
+     * Iniciar sesión como un usuario Ecommerce.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function loginEcommerce(Request $request)
     {
         $rules = [
             'email' => 'required|string|email|max:100',
@@ -70,7 +117,11 @@ class AuthController extends Controller
             ], 400);
         }
 
-        if (!Auth::attempt($request->only('email', 'password'))) {
+        if (!Auth::attempt([
+            "email" => $request->email,
+            "password" => $request->password,
+            "state" => 1
+        ])) {
             return response()->json([
                 'status' => false,
                 'errors' => ['No autorizado']

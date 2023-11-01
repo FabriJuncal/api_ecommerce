@@ -19,3 +19,22 @@ sail php artisan make:migration create_nums_phones_table
 
 // Creación de controlador para la subida de imagenes
 sail php artisan make:controller ImagenController
+
+// Creación de la tabla "Roles"
+sail php artisan make:migration create_roles_table
+
+// Creación del modelo "Roles"
+sail php artisan make:model Role
+
+// Creación del seeder "Roles"
+sail php artisan make:seeder RolesTableSeeder
+// Ejecución del seeder "Roles"
+sail php artisan migrate --seed
+
+// Se agrega un nuevo campo en la tabla "users"
+sail php artisan make:migration add_role_id_to_users_table
+// Se genera la migración para crear el nuevo campo en la tabla "Users" en la base de datos
+sail php artisan migrate
+
+
+
