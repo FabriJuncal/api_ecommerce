@@ -36,5 +36,10 @@ sail php artisan make:migration add_role_id_to_users_table
 // Se genera la migración para crear el nuevo campo en la tabla "Users" en la base de datos
 sail php artisan migrate
 
+// Creación de controlador para el CRUD de Usuarios
+sail php artisan make:controller UserController --resource
+
+
+
 
 
