@@ -10,9 +10,17 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $state = $request->get('state');
+        $search = $request->get('search');
+
+        $users = User::FilterAdvance($state, $search)->where('type_user', 2)->paginate(20);
+
+        return response()->json([
+            "total" => $users->total(),
+            "users" => $users,
+        ]);
     }
 
     /**
@@ -31,10 +39,16 @@ class UserController extends Controller
         $user = User::where("email", $request->email)->first();
 
         if($user){
-            return response()->json(["message" => 400]);
+            return response()->json([
+                'status' => false,
+                'errors' => "Email ya registrado, pruebe intentando con otro."
+            ], 400);
         }else{
             $user = User::create($request->all());
-            return response()->json(["message" => 200]);
+            return response()->json([
+                'status' => true,
+                'message' => 'Usuario creado exitosamente'
+            ], 200);
         }
     }
 

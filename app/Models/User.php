@@ -67,6 +67,17 @@ class User extends Authenticatable
         $this->attributes["password"] = bcrypt($password);
     }
 
+    public function scopeFilterAdvance($query, $state, $search){
+        if($state){
+            $query->where('state', $state);
+        }
+        if($search){
+            $query->where('name', 'like', '%' . $search . '%')->orWhere('surname', 'like', '%' . $search . '%');
+        }
+
+        return $query;
+    }
+
     public function role(){
         return $this->belongsTo(Role::class);
     }

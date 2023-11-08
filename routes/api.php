@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ImagenController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,10 @@ Route::post('auth/forgot-password',[AuthController::class, 'sendResetLink']);
 Route::middleware(['auth:sanctum'])->group(function(){
     // Endpoint que se encarga de obtener los datos del usuario logeado
     Route::get('auth/me', [AuthController::class, 'me']);
+
+    Route::post('admin/register',[UserController::class, 'store']);
+    Route::get('admin/all',[UserController::class, 'index']);
+
 
     // Endpoint que se encarga de subir las imagenes al servidor
     Route::post('/upload-image', [ImagenController::class, 'store']);
