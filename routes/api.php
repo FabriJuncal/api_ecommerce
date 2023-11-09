@@ -29,6 +29,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
     Route::post('admin/register',[UserController::class, 'store']);
     Route::get('admin/all',[UserController::class, 'index']);
+    Route::put('admin/update/{id}',[UserController::class, 'update']);
+    Route::delete('admin/delete/{id}',[UserController::class, 'destroy']);
 
 
     // Endpoint que se encarga de subir las imagenes al servidor

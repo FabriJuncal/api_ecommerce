@@ -15,7 +15,7 @@ class UserController extends Controller
         $state = $request->get('state');
         $search = $request->get('search');
 
-        $users = User::FilterAdvance($state, $search)->where('type_user', 2)->paginate(20);
+        $users = User::FilterAdvance($state, $search)->where('type_user', 2)->orderBy("id", "desc")->paginate(20);
 
         return response()->json([
             "total" => $users->total(),
@@ -37,7 +37,6 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $user = User::where("email", $request->email)->first();
-
         if($user){
             return response()->json([
                 'status' => false,
@@ -45,9 +44,11 @@ class UserController extends Controller
             ], 400);
         }else{
             $user = User::create($request->all());
+            $user['state'] = 1;
             return response()->json([
                 'status' => true,
-                'message' => 'Usuario creado exitosamente'
+                'message' => 'Usuario creado exitosamente',
+                'user' => $user
             ], 200);
         }
     }
@@ -73,7 +74,22 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::where("email", $request->email)->where("id", "<>", $id)->first();
+
+        if($user){
+            return response()->json([
+                'status' => false,
+                'errors' => "Error al intentar actualizar los datos del usuario"
+            ], 400);
+        }else{
+            $user = User::findOrFail($id);
+            $user->update($request->all());
+            return response()->json([
+                'status' => true,
+                'message' => 'Usuario actualizado exitosamente',
+                'user' => $user
+            ], 200);
+        }
     }
 
     /**
@@ -81,6 +97,20 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        if(!$user){
+            return response()->json([
+                'status' => false,
+                'errors' => "Error al intentar eliminar al usuario"
+            ], 400);
+        }else{
+
+            $user->delete();
+            return response()->json([
+                'status' => true,
+                'message' => 'Usuario eliminado exitosamente'
+            ], 200);
+        }
     }
 }
