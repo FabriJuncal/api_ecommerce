@@ -39,6 +39,19 @@ sail php artisan migrate
 // Creación de controlador para el CRUD de Usuarios
 sail php artisan make:controller UserController --resource
 
+// Creación de la tabla "Categories"
+sail php artisan make:migration create_categories_table
+
+// Creación del modelo "Categories"
+sail php artisan make:model Categories
+
+// Creación del seeder "Categories"
+sail php artisan make:seeder CategoriesTableSeeder
+// Ejecución del seeder "Categories"
+sail php artisan migrate --seed
+
+// Creación de controlador para el CRUD de "Categories"
+sail php artisan make:controller CategoriesController --resource
 
 
 

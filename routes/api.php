@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -27,10 +28,15 @@ Route::middleware(['auth:sanctum'])->group(function(){
     // Endpoint que se encarga de obtener los datos del usuario logeado
     Route::get('auth/me', [AuthController::class, 'me']);
 
+    /* ENDPOINTS PARA USUARIO ADMINISTRADOR */
     Route::post('admin/register',[UserController::class, 'store']);
     Route::get('admin/all',[UserController::class, 'index']);
     Route::put('admin/update/{id}',[UserController::class, 'update']);
     Route::delete('admin/delete/{id}',[UserController::class, 'destroy']);
+
+    /* ENDPOINTS PARA CATEGORIAS */
+    Route::get('products/categories/all',[CategoriesController::class, 'index']);
+    Route::post('products/categories/add',[CategoriesController::class, 'store']);
 
 
     // Endpoint que se encarga de subir las imagenes al servidor
