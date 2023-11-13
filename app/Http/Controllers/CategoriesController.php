@@ -99,7 +99,7 @@ class CategoriesController extends Controller
     public function update(Request $request, string $id)
     {
         $categorie = Categories::findOrFail($id);
-        $path = 'uploads/categories';
+        $path = 'uploads/categories/';
 
         if($request->hasFile('image_file')){
             $completePath = public_path($path . $categorie->image);
