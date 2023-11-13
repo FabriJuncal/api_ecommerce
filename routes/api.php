@@ -37,6 +37,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
     /* ENDPOINTS PARA CATEGORIAS */
     Route::get('products/categories/all',[CategoriesController::class, 'index']);
     Route::post('products/categories/add',[CategoriesController::class, 'store']);
+    Route::post('products/categories/update/{id}',[CategoriesController::class, 'update']);
+    Route::delete('products/categories/delete/{id}',[CategoriesController::class, 'destroy']);
 
 
     // Endpoint que se encarga de subir las imagenes al servidor
