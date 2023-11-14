@@ -20,6 +20,11 @@ sail php artisan make:migration create_nums_phones_table
 // Creación de controlador para la subida de imagenes
 sail php artisan make:controller ImagenController
 
+// Creación de controlador para el CRUD de Usuarios
+sail php artisan make:controller UserController --resource
+/** ===================================================================================**/
+/** ROLES **/
+
 // Creación de la tabla "Roles"
 sail php artisan make:migration create_roles_table
 
@@ -35,9 +40,8 @@ sail php artisan migrate --seed
 sail php artisan make:migration add_role_id_to_users_table
 // Se genera la migración para crear el nuevo campo en la tabla "Users" en la base de datos
 sail php artisan migrate
-
-// Creación de controlador para el CRUD de Usuarios
-sail php artisan make:controller UserController --resource
+/** ===================================================================================**/
+/** CATEGORÍAS **/
 
 // Creación de la tabla "Categories"
 sail php artisan make:migration create_categories_table
@@ -52,6 +56,36 @@ sail php artisan migrate --seed
 
 // Creación de controlador para el CRUD de "Categories"
 sail php artisan make:controller CategoriesController --resource
+/** ===================================================================================**/
+/** PRODUCTOS **/
+
+// Creación de la tabla "Products"
+sail php artisan make:migration create_products_table
+
+// Creación de la tabla "product_images"
+sail php artisan make:migration create_product_images_table
+
+// Creación de la tabla "product_colors"
+sail php artisan make:migration create_product_colors_table
+
+// Creación de la tabla "product_sizes"
+sail php artisan make:migration create_product_sizes_table
+
+// Creación de la tabla "product_color_sizes"
+sail php artisan make:migration create_product_color_sizes_table
+
+// Creación del modelo "Products"
+sail php artisan make:model products
+
+// Creación del seeder "Products"
+sail php artisan make:seeder productsTableSeeder
+// Ejecución del seeder "Products"
+sail php artisan migrate --seed
+
+// Creación de controlador para el CRUD de "Products"
+sail php artisan make:controller productosController --resource
+
+
 
 
 

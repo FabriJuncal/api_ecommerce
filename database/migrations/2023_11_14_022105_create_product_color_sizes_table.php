@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('product_color_sizes', function (Blueprint $table) {
             $table->id()->primary();
-            $table->string('name');
-            $table->string('image');
-            $table->string('icon');
+            $table->unsignedInteger('stock'); // Esto dobla el rango de valores no negativos que puedes almacenar en comparación con un entero normal.
+            $table->foreignId('product_color_id')->index();
+            $table->foreignId('product_size_id')->index();
             $table->timestamps();
             $table->softDeletes(); // Agrega la columna deleted_at para soporte de eliminación suave
         });
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('product_color_sizes');
     }
 };
