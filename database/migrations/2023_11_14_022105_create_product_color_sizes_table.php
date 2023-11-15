@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('product_color_sizes', function (Blueprint $table) {
-            $table->id()->primary();
+            $table->id();
             $table->unsignedInteger('stock'); // Esto dobla el rango de valores no negativos que puedes almacenar en comparación con un entero normal.
             $table->foreignId('product_color_id')->index();
             $table->foreignId('product_size_id')->index();

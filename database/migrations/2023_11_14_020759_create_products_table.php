@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id()->primary();
+            $table->id();
             $table->string('title');
             $table->string('slug');
             $table->string('sku', 50);
@@ -21,8 +21,7 @@ return new class extends Migration
             $table->json('tags')->nullable();
             $table->longText('description');
             $table->text('summary');
-            $table->tinyInteger('state', 1)
-            ->unsigned() // Indica que los valores no pueden ser negativos
+            $table->tinyInteger('state', false, true) // 'false' indica que no es autoincremental, 'true' indica que es sin signo
             ->default(1) // Indica que el valor por defecto será "1"
             ->comment('1 = NO PUBLICO | 2 = PUBLICO | 3 = PAUSADO'); // Agrega un comentario sobre el campo
             $table->string('image');
