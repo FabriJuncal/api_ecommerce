@@ -116,7 +116,8 @@ sail php artisan make:controller Product/ProductColorSizesController --resource
 
 
 
-
+// Se genera la migración para crear el nuevo campo en la tabla "Users" en la base de datos
+sail php artisan migrate
 
 
 

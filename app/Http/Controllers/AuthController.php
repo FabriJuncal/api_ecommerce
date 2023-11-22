@@ -47,7 +47,7 @@ class AuthController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Usuario creado exitosamente',
-            'access_token' => $user->createToken('API TOKEN')->plainTextToken
+            'token' => $user->createToken('API TOKEN')->plainTextToken
         ], 200);
     }
 
@@ -93,7 +93,7 @@ class AuthController extends Controller
             'status' => true,
             'message' => 'Usuario ha iniciado sesión exitosamente',
             'user' => $user,
-            'access_token' => $user->createToken('API TOKEN')->plainTextToken
+            'token' => $user->createToken('API TOKEN')->plainTextToken
         ], 200);
     }
 
@@ -133,7 +133,7 @@ class AuthController extends Controller
             'status' => true,
             'message' => 'Usuario ha iniciado sesión exitosamente',
             'user' => $user,
-            'access_token' => $user->createToken('API TOKEN')->plainTextToken
+            'token' => $user->createToken('API TOKEN')->plainTextToken
         ], 200);
     }
 
@@ -144,7 +144,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        // Elimina el token de la tabla "personal_access_tokens"
+        // Elimina el token de la tabla "personal_tokens"
         auth()->user()->tokens()->delete();
         return response()->json([
             'status' => true,
