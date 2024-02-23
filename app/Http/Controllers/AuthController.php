@@ -41,7 +41,8 @@ class AuthController extends Controller
             'surname' => $request->surname,
             'email' => $request->email,
             'type_user' => $request->type_user,
-            'password' => Hash::make($request->password)
+            'role_id' => $request->roleId,
+            'password' => $request->password
         ]);
 
         return response()->json([
@@ -74,9 +75,7 @@ class AuthController extends Controller
 
         if (!Auth::attempt([
             "email" => $request->email,
-            "password" => $request->password,
-            "state" => 1,
-            "type_user" => 2
+            "password" => $request->password
         ])) {
             return response()->json([
                 'status' => false,
