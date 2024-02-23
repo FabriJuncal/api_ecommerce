@@ -24,7 +24,7 @@ return new class extends Migration
             $table->tinyInteger('state', false, true) // 'false' indica que no es autoincremental, 'true' indica que es sin signo
             ->default(1) // Indica que el valor por defecto será "1"
             ->comment('1 = NO PUBLICO | 2 = PUBLICO | 3 = PAUSADO'); // Agrega un comentario sobre el campo
-            $table->string('image');
+            $table->string('cover_image');
             $table->unsignedInteger('stock')->nullable(); // Esto dobla el rango de valores no negativos que puedes almacenar en comparación con un entero normal.
                                                         // Este campo se utilizará en el caso que el producto no disponga del campo "sizes",
                                                         // ya que cuando se utiliza el campo "sizes" el stock se encontrará en la tabla "product_color_sizes"
