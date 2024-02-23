@@ -29,7 +29,10 @@ sail php artisan make:controller UserController --resource
 sail php artisan make:migration create_roles_table
 
 // Creación del modelo "Roles"
-sail php artisan make:model Role
+sail php artisan make:model Roles
+
+// Creación de controlador para el CRUD de "Roles"
+sail php artisan make:controller RolesController --resource
 
 // Creación del seeder "Roles"
 sail php artisan make:seeder RolesTableSeeder
@@ -66,7 +69,7 @@ sail php artisan make:migration create_products_table
 sail php artisan make:model product/Products
 
 // Creación de controlador para el CRUD de "Products"
-sail php artisan make:controller Product/ProductGController --resource
+sail php artisan make:controller Product/ProductController --resource
 
 // Creación de los Resources (Capa de transformación), esta capa de transformación se utiliza para modificar los valores antes de retornar los datos al frontend
 sail php artisan make:resource Product/ProductCResource
@@ -85,36 +88,16 @@ sail php artisan make:model product/ProductImages
 sail php artisan make:controller Product/ProductImagesController --resource
 
 /** ===================================================================================**/
-/** PRODUCT COLORS**/
+/** PRODUCT VARIATIONS **/
 
-// Creación de la tabla "product_colors"
-sail php artisan make:migration create_product_colors_table
+// Creación de la tabla "product_variations"
+sail php artisan make:migration create_product_variations_table
 
-// Creación del modelo "Products"
-sail php artisan make:model product/ProductColors
+// Creación del modelo "ProductVariations"
+sail php artisan make:model "product/ProductVariations"
 
-/** ===================================================================================**/
-/** PRODUCT SIZES**/
-
-// Creación de la tabla "product_sizes"
-sail php artisan make:migration create_product_sizes_table
-
-// Creación del modelo "Products"
-sail php artisan make:model product/ProductSizes
-
-/** ===================================================================================**/
-/** PRODUCT COLOR SIZES**/
-
-// Creación de la tabla "product_color_sizes"
-sail php artisan make:migration create_product_color_sizes_table
-
-// Creación del modelo "Products"
-sail php artisan make:model product/ProductColorSizes
-
-// Creación de controlador para el CRUD de "Product Color Sizes"
-sail php artisan make:controller Product/ProductColorSizesController --resource
-
-
+// Creación de controlador para el CRUD de "Product Variations"
+sail php artisan make:controller Product/ProductVariationsController --resource
 
 // Se genera la migración para crear el nuevo campo en la tabla "Users" en la base de datos
 sail php artisan migrate

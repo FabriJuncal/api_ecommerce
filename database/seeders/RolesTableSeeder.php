@@ -13,12 +13,10 @@ class RolesTableSeeder extends Seeder
      */
     public function run(): void
     {
-        // Verifica si el registro ya existe para evitar duplicados
-        if (!Role::where('name', 'ADMINISTRADOR GENERAL')->exists()) {
-            // Inserta un nuevo registro en la tabla "roles"
-            Role::create([
-                'name' => 'ADMINISTRADOR GENERAL',
-            ]);
-        }
+        // Crea o encuentra el rol "ADMINISTRADOR GENERAL"
+        Role::firstOrCreate(['name' => 'ADMINISTRADOR GENERAL']);
+
+        // Crea o encuentra el rol "USUARIO ESTANDAR"
+        Role::firstOrCreate(['name' => 'USUARIO ESTANDAR']);
     }
 }

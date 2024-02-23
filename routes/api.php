@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ImagenController;
+use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,12 @@ Route::middleware(['auth:sanctum'])->group(function(){
     // Endpoint que se encarga de obtener los datos del usuario logeado
     Route::get('auth/me', [AuthController::class, 'me']);
 
+    /* ENDPOINTS PARA ROLES */
+    Route::post('rol/create',[RolesController::class, 'store']);
+    Route::get('rol/all',[RolesController::class, 'index']);
+    Route::post('rol/update/{id}',[RolesController::class, 'update']);
+    Route::delete('rol/delete/{id}',[RolesController::class, 'destroy']);
+
     /* ENDPOINTS PARA USUARIO ADMINISTRADOR */
     Route::post('admin/register',[UserController::class, 'store']);
     Route::get('admin/all',[UserController::class, 'index']);
@@ -39,6 +46,14 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('products/categories/add',[CategoriesController::class, 'store']);
     Route::post('products/categories/update/{id}',[CategoriesController::class, 'update']);
     Route::delete('products/categories/delete/{id}',[CategoriesController::class, 'destroy']);
+
+
+
+    /* ENDPOINTS PARA VARIACIONES DEL PRODUCTO */
+    Route::get('products/variations/all',[CategoriesController::class, 'index']);
+    Route::post('products/variations/add',[CategoriesController::class, 'store']);
+    Route::post('products/variations/update/{id}',[CategoriesController::class, 'update']);
+    Route::delete('products/variations/delete/{id}',[CategoriesController::class, 'destroy']);
 
 
     // Endpoint que se encarga de subir las imagenes al servidor
